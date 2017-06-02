@@ -16,10 +16,19 @@ class Router
 
     foreach($this->routes as $uriPattern => $path){
       if(preg_match("~$uriPattern~", $uri)){
-          $segments = explode('/', $path);
 
-          $controllerName = array_shift($segments).'Controller';
-          $controllerName = ucfirst($controllerName);
+          echo 'Request: ', $uri, '<br>';
+          echo 'Pattern: ', $uriPattern, '<br>';
+          echo 'Hadler: ', $path, '<br>';
+
+              $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+
+          echo 'Need internal addres: ' . $internalRoute . '<br>';
+
+          print_r($internalRoute);
+          $segments = explode('/', $internalRoute);
+          $controllerName =  array_shift($segments) . 'Controller';
+          $controllerName = ucfirst( $controllerName );
 
           $actionName = 'action' . ucfirst(array_shift($segments));
           $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
@@ -28,8 +37,8 @@ class Router
             include_once($controllerFile);
           }
 
-          $controllerObject = new $controllerName;
-          $result = $controllerName->$actionName;
+          $controllerObject = new $controllerName();
+          $result = $controllerObject->$actionName();
           if($result != null){
             break;
           }
@@ -44,7 +53,7 @@ class Router
   private function getURI()
   {
     if( !empty($_SERVER['REQUEST_URI'])) {
-        return trim($_SERVER['REQUEST_URI']);
+        return trim($_SERVER['REQUEST_URI'], '/');
     }
   }
 }

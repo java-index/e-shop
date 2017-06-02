@@ -13,8 +13,6 @@ require_once(ROOT . '/components/Router.php');
 // 3. Connect to DB
 
 
-
-
 // 4. Call Router
 $router = new Router;
 $router->run();
