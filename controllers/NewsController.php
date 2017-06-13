@@ -6,8 +6,8 @@ class NewsController
 {
     public function actionIndex()
     {
-        $newList = array();
-        $newList = News::getNewsList();
+        $newsList = array();
+        $newsList = News::getNewsList();
 
         echo '<pre>';
         print_r($newsList);
@@ -16,9 +16,14 @@ class NewsController
         return true;
     }
 
-    public function actionView($category, $id)
+    public function actionView($id)
     {
-        echo $category, '  ', $id;
+        $newsItem = News::getNewsById($id);
+
+        echo '<pre>';
+        print_r($newsItem);
+        echo '</pre>';
+
         return true;
     }
 

@@ -17,13 +17,13 @@ class Router
         foreach ($this->routes as $uriPattern => $path) {
             if (preg_match("~$uriPattern~", $uri)) {
 
-                echo 'Request: ', $uri, '<br>';
-                echo 'Pattern: ', $uriPattern, '<br>';
-                echo 'Hadler: ', $path, '<br>';
+//                echo 'Request: ', $uri, '<br>';
+//                echo 'Pattern: ', $uriPattern, '<br>';
+//                echo 'Hadler: ', $path, '<br>';
 
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
 
-                echo 'Need internal addres: ' . $internalRoute . '<br>';
+//                echo 'Need internal addres: ' . $internalRoute . '<br>';
 
                 $segments = explode('/', $internalRoute);
                 $controllerName = array_shift($segments) . 'Controller';
